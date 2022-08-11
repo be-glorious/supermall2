@@ -1,0 +1,17 @@
+<template>
+  <div>
+    <nav-bar>
+      <template v-slot:center>购物街</template>
+    </nav-bar>
+  </div>
+</template>
+
+<script>
+import NavBar from 'components/common/navbar/NavBar'
+export default {
+  name:"HomeNavBar",
+  components:{
+    NavBar
+  }
+}
+</script>
