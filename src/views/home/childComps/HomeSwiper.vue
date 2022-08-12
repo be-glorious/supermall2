@@ -20,9 +20,22 @@
             }
         }
       },
+      data(){
+        return{
+          isLoad:false,
+        }
+      },
       components:{
         Swiper,SwiperItem
       },
+      methods:{
+        imageLoad(){
+          if(!this.isLoad){
+            this.$emit('imageLoad')
+            this.isLoad = true;
+          }
+        }
+      }
   }
 </script>
 

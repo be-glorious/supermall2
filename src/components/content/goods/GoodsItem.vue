@@ -1,6 +1,8 @@
 <template>
   <div class="goodsItem">
-    <img :src="goodsList.show.img" alt="" @load="itemLoad">
+    <a href="https://github.com/be-glorious/supermall2">
+      <img :src="goodsList.show.img" alt="" @load="itemLoad">
+    </a>
     <div class="goodsItemBottom"> 
       <div class="price">￥{{goodsList.price}}</div>
       <div class="collect">
@@ -26,7 +28,8 @@ export default {
     itemLoad(){
       this.$emit('itemLoad');
     }
-  }
+  },
+  
 }
 </script>
 

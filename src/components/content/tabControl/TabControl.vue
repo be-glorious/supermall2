@@ -35,7 +35,8 @@ export default {
   .tab-control{
     display: flex;
     justify-content: space-around;
-    margin-top: 15px;
+    padding-top: 10px;
+    padding-bottom: 5px;
   }
   .tab-control .item{
     padding: 2px 5px;
