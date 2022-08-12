@@ -4,7 +4,8 @@
     <tab-control :tabTitle="['流行','新款','精选']" 
             @titleClick="titleClick"
             class="tabControl1"
-            v-show="isShowTab"/>
+            v-show="isShowTab"
+            ref="tabControl1"/>
     <scroll class="content" ref="scroll" 
           :pullUpLoad="true" 
           :probeType="3"
@@ -102,6 +103,8 @@ export default {
      * 方法
      */
     titleClick(index){
+      this.$refs.tabControl1.currentIndex = index;
+      this.$refs.tabControl2.currentIndex = index;
       switch(index){
         case 0:
           return this.currentType = 'pop'
@@ -113,6 +116,8 @@ export default {
           return this.currentType = 'sell'
           break;
       }
+      
+      
     },
 
     /**

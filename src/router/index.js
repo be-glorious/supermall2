@@ -8,6 +8,8 @@ const Cart = () =>
   import ('views/cart/Cart')
 const My = () =>
   import ('views/my/My')
+const Detail = () =>
+  import ('views/detail/Detail')
 
 const routes = [{
   path: '',
@@ -24,6 +26,9 @@ const routes = [{
 }, {
   path: '/my',
   component: My
+}, {
+  path: '/detail',
+  component: Detail
 }]
 
 const router = createRouter({

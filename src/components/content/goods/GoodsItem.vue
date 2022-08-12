@@ -1,8 +1,6 @@
 <template>
   <div class="goodsItem">
-    <a href="https://github.com/be-glorious/supermall2">
-      <img :src="goodsList.show.img" alt="" @load="itemLoad">
-    </a>
+    <img :src="goodsList.show.img" alt="" @load="itemLoad">
     <div class="goodsItemBottom"> 
       <div class="price">￥{{goodsList.price}}</div>
       <div class="collect">
