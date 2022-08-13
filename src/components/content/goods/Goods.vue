@@ -1,7 +1,7 @@
 <template>
   <div class="goods">
     <div v-for="(item,index) in goods" :key="index">
-      <goods-item :goodsList="item" @itemLoad="itemLoad"/>
+      <goods-item :goodsList="item" @itemLoad="itemLoad" @click="detailClick(item)"/>
     </div>
   </div>
 </template>
@@ -24,6 +24,12 @@ export default {
   methods:{
     itemLoad(){
       this.$emit('itemLoad')
+    },
+    detailClick(item){
+      // console.log(item.iid);
+      
+      this.$router.push('/detail'+item.iid)
+      
     }
   }
 }

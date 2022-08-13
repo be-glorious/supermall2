@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="navbar">
     <nav-bar>
       <template v-slot:center>购物街</template>
     </nav-bar>
@@ -15,3 +15,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .navbar{
+    background-color:var(--color-tint);
+    color: aliceblue;
+  }
+</style>
