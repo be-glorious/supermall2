@@ -1,17 +1,17 @@
 <template>
-  <div>
     <nav-bar class="navbar">
       <template v-slot:left>
         <img class="leftImg" src="~assets/img/common/back.svg" alt="" @click="backClick">
       </template>
       <template v-slot:center>
-        <div class="centerTitle" v-for="item in navbarTitle">
+        <div class="centerTitle" v-for="(item,index) in navbarTitle" 
+              :key="index"
+              @click="titleClick(index)"
+              :class="{isActive:currentIndex == index}">
           {{item}}
         </div>
       </template>
     </nav-bar>
-
-  </div>
 </template>
 
 <script>
@@ -24,12 +24,17 @@ export default {
   },
   data(){
     return{
-      navbarTitle:['详情','参数','评论','推荐']
+      navbarTitle:['详情','参数','评论','推荐'],
+      currentIndex:0
     }
   },
   methods:{
     backClick(){
       this.$router.back();
+    },
+    titleClick(index){      
+      this.currentIndex = index;
+      this.$emit('titleClick',index)
     }
   }
 }
@@ -46,5 +51,8 @@ export default {
   }
   .leftImg{
     margin-top: 10px;
+  }
+  .isActive{
+    color: var(--color-high-text)
   }
 </style>

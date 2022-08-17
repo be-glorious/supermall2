@@ -1,6 +1,7 @@
 <template>
   <div class="goodsItem">
-    <img :src="goodsList.show.img" alt="" @load="itemLoad">
+    <img v-if="goodsList.show != null" :src="goodsList.show.img" alt="" @load="itemLoad">
+    <img v-else :src="goodsList.image" alt="" @load="itemLoad">    
     <div class="goodsItemBottom"> 
       <div class="price">￥{{goodsList.price}}</div>
       <div class="collect">
@@ -37,7 +38,7 @@ export default {
     padding:0 4px;
     margin-top: 3px;
     box-sizing: border-box;
-
+    margin-bottom: 3px;
   }
   .goodsItemBottom{
     display: flex;

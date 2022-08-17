@@ -1,5 +1,4 @@
 <template>
-  <div class="mainTabBar">
     <tab-bar>
       <tab-bar-item class="tab-bar-item" path="/home" textColor="var(--color-tint)">
         <template v-slot:img><img src="~assets/img/tabbar/home.svg" alt=""></template>
@@ -22,7 +21,6 @@
         <template v-slot:text><div class="text">我的</div></template>
       </tab-bar-item>
     </tab-bar>
-  </div>
 </template>
 
 <script>

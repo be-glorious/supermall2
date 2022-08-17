@@ -76,14 +76,6 @@ export default {
     this.getHomeGoods('new');
     this.getHomeGoods('sell');
   },
-  activated(){
-    console.log(2);
-    
-  },
-  deactivated(){
-    console.log(3);
-    
-  },
   methods:{
     /**
      * 网络传数据
