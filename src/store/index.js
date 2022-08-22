@@ -28,7 +28,7 @@ export default createStore({
       return new Promise((resolve, reject) => {
         let isLive = context.state.cartList.find(item => item.iid === payload.iid)
         if (isLive) {
-          context.commit('addClick', payload);
+          context.commit('addClick', isLive);
           resolve('该商品数量+1')
         } else {
           context.commit('addOneClick', payload);
