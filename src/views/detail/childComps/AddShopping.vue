@@ -18,7 +18,7 @@
 
     <!-- 右 -->
     <div class="right">
-      <div class="addShop">加入购物车</div>
+      <div class="addShop" @click="addClick">加入购物车</div>
       <div class="buy">购买</div>
     </div>
     
@@ -29,6 +29,12 @@
 <script>
 export default {
   name:"AddShopping",
+  methods:{
+    addClick(){
+      this.$emit('addClick');
+      
+    }
+  }
 }
 </script>
 

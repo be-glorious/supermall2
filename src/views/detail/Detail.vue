@@ -16,7 +16,7 @@
             @itemLoad="itemLoad" 
             ref="detailRecommend"/>
     </scroll>
-    <add-shopping/>
+    <add-shopping @addClick="addClick"/>
     <top-back v-show="isShow" @click="topClick"/>
   </div>
 </template>
@@ -53,7 +53,8 @@ export default {
       themeTopYs:[],
       currentIndex:0,
       y:0,
-      length:0
+      length:0,
+      iid:this.$route.params.iid,
     }
   },
   components:{
@@ -70,12 +71,13 @@ export default {
     TopBack
   },
   mounted(){
-    getDetail(this.$route.params.iid).then(res => {
+    getDetail(this.iid).then(res => {
       this.swiperImage = res.result.itemInfo.topImages;
       const result = res.result
       this.describe = new Describe(result.itemInfo,result.columns,result.shopInfo.services);
       this.shop = new Shop(result.shopInfo);
       this.detailInfo = result.detailInfo
+      
       this.goodParams = new Params(result.itemParams.info,result.itemParams.rule);
       if(result.rate.cRate !== 0){
         this.detailComment = result.rate;
@@ -128,6 +130,17 @@ export default {
     // 导航栏点击
     titleClick(index){
       this.$refs.detailScroll.scrollTo(0,-this.themeTopYs[index],500)
+    },
+    //点击加购
+    addClick(){
+      const product = {};
+      product.iid = this.iid;
+      product.title = this.describe.title;
+      product.img = this.swiperImage[0];
+      product.price = this.describe.realPrice;
+      product.discount = this.describe.discount;
+      product.isChoice = true;
+      this.$store.commit('addClick',product)
     }
   }
   
