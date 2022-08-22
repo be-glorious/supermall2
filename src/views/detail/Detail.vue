@@ -18,11 +18,14 @@
     </scroll>
     <add-shopping @addClick="addClick"/>
     <top-back v-show="isShow" @click="topClick"/>
+    <toast :text="text" v-if="isShowToast"/>
   </div>
 </template>
 
 <script>
 import {getDetail,Describe,Shop,Params,getRecommend} from 'network/detail'
+
+import {mapActions} from 'vuex'
 
 import DetailNavBar from './childComps/DetailNavBar'
 import DetailSwiper from './childComps/DetailSwiper'
@@ -35,6 +38,7 @@ import DetailRecommend from './childComps/DetailRecommend'
 import AddShopping from './childComps/AddShopping'
 
 import Scroll from 'components/common/scroll/Scroll'
+import Toast from 'components/common/toast/Toast'
 
 import TopBack from 'components/content/topBack/TopBack'
 
@@ -55,6 +59,8 @@ export default {
       y:0,
       length:0,
       iid:this.$route.params.iid,
+      text:"",
+      isShowToast:false,
     }
   },
   components:{
@@ -68,7 +74,8 @@ export default {
     DetailComment,
     DetailRecommend,
     AddShopping,
-    TopBack
+    TopBack,
+    Toast
   },
   mounted(){
     getDetail(this.iid).then(res => {
@@ -77,7 +84,6 @@ export default {
       this.describe = new Describe(result.itemInfo,result.columns,result.shopInfo.services);
       this.shop = new Shop(result.shopInfo);
       this.detailInfo = result.detailInfo
-      
       this.goodParams = new Params(result.itemParams.info,result.itemParams.rule);
       if(result.rate.cRate !== 0){
         this.detailComment = result.rate;
@@ -88,6 +94,7 @@ export default {
     })
   },
   methods:{
+    ...mapActions(['cartClick']),
     itemLoad(){
       this.$refs.detailScroll.refresh();
     },
@@ -106,16 +113,6 @@ export default {
       }else{
         this.$refs.detailnavbar.currentIndex = 3;
       }   
-       
-      // this.y = -position.y;
-      // this.length = this.themeTopYs.length;
-      // for(let i = 0;i <this.length;i++){
-      //   if(this.themeTopYs[i]<=this.y && this.themeTopYs[i+1]>this.y){
-      //     this.currentIndex = i;
-      //     this.$refs.detailnavbar.currentIndex = this.currentIndex;
-      //   }
-      // }  
-
     },
     // 详情页图片监听
     pictureLoad(){
@@ -140,7 +137,14 @@ export default {
       product.price = this.describe.realPrice;
       product.discount = this.describe.discount;
       product.isChoice = true;
-      this.$store.commit('addClick',product)
+      this.cartClick(product).then(res => {
+        this.text = res;
+        this.isShowToast = true;
+        setTimeout(()=>{
+          this.isShowToast = false;
+          this.text == "";
+        },1000)
+      })
     }
   }
   

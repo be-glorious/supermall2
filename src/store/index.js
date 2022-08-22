@@ -12,60 +12,30 @@ export default createStore({
     }
   },
   mutations: {
-
     /**
      * 添加购物车
      */
     addClick(state, payload) {
-      if (state.cartList.length == 0) {
-        payload.count = 1;
-        state.cartList.push(payload);
-      } else {
-
-        /**
-         * 法一：麻烦一点
-         */
-        // for (let i = 0; i < state.cartList.length; i++) {
-        //   state.isLive = state.cartList[i].iid.indexOf(payload.iid) !== -1;
-        //   if (state.isLive) {
-        //     state.i = i;
-        //     break;
-        //   }
-        // }
-        // if (state.isLive) {
-        //   state.cartList[state.i].count += 1;
-        //   state.isLive = false;
-        // } else {
-        //   payload.count = 1;
-        //   state.cartList.push(payload);
-        // }
-
-        /**
-         * 法二：方便
-         */
-        let isLive = state.cartList.find(item => item.iid === payload.iid)
-        if (isLive) {
-          isLive.count += 1;
-        } else {
-          payload.count = 1;
-          state.cartList.push(payload);
-        }
-      }
+      payload.count += 1;
     },
-
-    /**
-     * 单个商品选中
-     */
-    // checkClick(state, payload) {
-    //   state.cartList.find(item => {
-    //     if (item.iid == payload.iid) {
-    //       item.isChoice = payload.isChoice;
-    //     }
-    //   })
-    // },
-
-
+    addOneClick(state, payload) {
+      payload.count = 1;
+      state.cartList.push(payload);
+    }
   },
-  actions: {},
+  actions: {
+    cartClick(context, payload) {
+      return new Promise((resolve, reject) => {
+        let isLive = context.state.cartList.find(item => item.iid === payload.iid)
+        if (isLive) {
+          context.commit('addClick', payload);
+          resolve('该商品数量+1')
+        } else {
+          context.commit('addOneClick', payload);
+          resolve('已加入购物车')
+        }
+      })
+    }
+  },
   modules: {}
 })
